@@ -123,14 +123,14 @@ void printGPSInfo()
 // GPSデータ表示関数
 void printGPSInfo_forLog()
 {
-  SerialMonitor.print("Lat: "); SerialMonitor.println(tinyGPS.location.lat(), 6);
-  SerialMonitor.print("Long: "); SerialMonitor.println(tinyGPS.location.lng(), 6);
-  SerialMonitor.print("Alt: "); SerialMonitor.println(tinyGPS.altitude.feet());
+  SerialMonitor.print("Lat:    "); SerialMonitor.println(tinyGPS.location.lat(), 6);
+  SerialMonitor.print("Long:   "); SerialMonitor.println(tinyGPS.location.lng(), 6);
+  SerialMonitor.print("Alt:    "); SerialMonitor.println(tinyGPS.altitude.feet());
   SerialMonitor.print("Course: "); SerialMonitor.println(tinyGPS.course.deg());
-  SerialMonitor.print("Speed: "); SerialMonitor.println(tinyGPS.speed.mph());
-  SerialMonitor.print("Date: "); printDate();
-  SerialMonitor.print("Time: "); printTime();
-  SerialMonitor.print("Sats: "); SerialMonitor.println(tinyGPS.satellites.value());
+  SerialMonitor.print("Speed:  "); SerialMonitor.println(tinyGPS.speed.mph());
+  SerialMonitor.print("Date:   "); printDate();
+  SerialMonitor.print("Time:   "); printTime();
+  SerialMonitor.print("Sats:   "); SerialMonitor.println(tinyGPS.satellites.value());
   SerialMonitor.println();
 }
 
