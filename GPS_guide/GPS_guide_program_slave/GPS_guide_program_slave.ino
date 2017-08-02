@@ -161,9 +161,14 @@ void setup() {
   y_GOAL = (tinyGPS.location.lat()- LAT_GOAL)*SCALE;
   for (int i = 0; i<10; i++)
   {
-    x_GOAL = x_GOAL*0.8+((tinyGPS.location.lng() - LNG_GOAL)*SCALE)*0.2;
-    y_GOAL = y_GOAL*0.8+((tinyGPS.location.lat()- LAT_GOAL)*SCALE)*0.2;
-    smartDelay(500);
+    while(!tinyGPS.location.isUpdated())
+    {
+      getGPSdata();
+    }
+    x_GOAL = x_GOAL*0.7+((tinyGPS.location.lng() - LNG_GOAL)*SCALE)*0.3;
+    y_GOAL = y_GOAL*0.7+((tinyGPS.location.lat() - LAT_GOAL)*SCALE)*0.3;
+    SerialMonitor.print(i);
+    smartDelay(1000);
   }
   longitude = x_GOAL;
   latitude = y_GOAL;
@@ -201,16 +206,16 @@ void loop() {
     */
 
     // 現在地を計算(始めの数ケタが変わるほど移動しないので，排除する)
-    longitude = longitude*0.8+((tinyGPS.location.lng() - LNG_GOAL)*SCALE)*0.2;
-    latitude = latitude*0.8+((tinyGPS.location.lat()- LAT_GOAL)*SCALE)*0.2;
+    longitude = longitude*0.7+((tinyGPS.location.lng() - LNG_GOAL)*SCALE)*0.3;
+    latitude = latitude*0.7+((tinyGPS.location.lat()- LAT_GOAL)*SCALE)*0.3;
 
 
 
     // 現在地と目的地の誤差を計算
-    x = 0;         //東西方向（東が正）
-    y = 0;          //南北方向（北が正）
-    theta = 0;    //角度（北から時計回りに何度か）
-    r = 0;                  //目的地との距離の2乗
+    x = x_GOAL - longitude;         //東西方向（東が正）
+    y = y_GOAL - latitude;          //南北方向（北が正）
+    theta = atan2(x,y)*180/3.14;    //角度（北から時計回りに何度か）
+    r = sqrt(x*x + y*y);                  //目的地との距離
 
 
     // 現在地と計算結果を表示
